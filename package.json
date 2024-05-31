@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "express": "^4.19.2",
+    "install": "^0.13.0",
+    "prom-client": "^15.1.2",
+    "response-time": "^2.3.2",
+    "winston": "^3.13.0",
+    "winston-loki": "^6.1.2"
+  }
+}
