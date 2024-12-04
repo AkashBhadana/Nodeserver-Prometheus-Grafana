@@ -11,12 +11,53 @@
 1. Clone the repository:
    
    https://github.com/AkashBhadana/Nodeserver-Prometheus-Grafana.git
-2. Install dependencies:  
+2. Change IP in Prometheus-config.yml
+   Before running the project, update the prometheus-config.yml file with your correct IP address and port for the server.
+
+   Open the prometheus-config.yml file and replace the IP address (112.196.36.85) with the IP of your machine and ensure the port (8000) is correct.
+   global:
+  scrape_interval: 4s
+
+   scrape_configs:
+     - job_name: prometheus
+       static_configs:
+         - targets: ["<your-ip>:8000"]
+   Make sure to replace <your-ip> with your actual server IP.
+
+3. Install dependencies:  
    npm install
-3. Start the server: http://localhost:8000
-4. Access the server: http://localhost:8000
-5. Access Prometheus: http://localhost:9090
-6. Access Grafana: http://localhost:3000
+
+4. Start the Node.js Server:
+   npm start
+
+5. Start the server: http://localhost:8000
+
+6. Run Prometheus with Docker:
+   Navigate to the folder containing your prometheus-config.yml file.
+   Run docker-compose up to start Prometheus.
+   Check if Prometheus is running on port 9090 by accessing:
+   http://localhost:9090
+
+7. Run Grafana with Docker:
+   Run the following Docker command to start Grafana on port 3000:   
+   docker run -d -p 3000:3000 --name=grafana grafana/grafana-oss
+   Check if Grafana is running by accessing:
+   http://localhost:3000
+
+8. Integrate Grafana with Prometheus:
+   Once Grafana is running, log in to the Grafana dashboard (default username: admin, password: admin).
+   Add Prometheus as a data source in Grafana by navigating to Configuration > Data Sources and selecting Prometheus.
+   Enter the URL of your Prometheus server (http://localhost:9090) and save the data source.
+
+9. Access the Monitoring Dashboards:
+   Access the server at:
+   http://localhost:8000
+
+   Access Prometheus at:
+   http://localhost:9090
+
+   Access Grafana at:
+   http://localhost:3000
 
 ## Metrics:
 - Request-Response Time: The histogram http_express_req_res_time tracks the time taken by the server to respond to requests.
