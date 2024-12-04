@@ -18,8 +18,8 @@
    global:
   scrape_interval: 4s
 
-   scrape_configs: /
-    - job_name: prometheus |
+   scrape_configs: 
+    - job_name: prometheus /
        static_configs: |
           - targets: ["<your-ip>:8000"] |
    Make sure to replace <your-ip> with your actual server IP.
