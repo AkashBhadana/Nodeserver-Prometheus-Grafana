@@ -2,6 +2,6 @@ global:
   scrape_interval: 4s
 
 scrape_configs:
-  - job_name: prometheus
+  - job_name: 'nodeserver'
     static_configs:
-      - targets: ["192.168.1.5:8000"]
+      - targets: ['nodeserver:8000']

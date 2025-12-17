@@ -1,11 +1,43 @@
-version: "3"
+version: '3.8'
 
 services:
-  prom-server:
-    image: prom/prometheus
+  nodeserver:
+    build: .
     ports:
-      - 9090:9090
+      - "8000:8000"
+    environment:
+      - LOKI_HOST=http://loki:3100
+    networks:
+      - monitor-net
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
     volumes:
       - ./prometheus-config.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitor-net
 
-      
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    networks:
+      - monitor-net
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - monitor-net
+
+networks:
+  monitor-net:
+    driver: bridge

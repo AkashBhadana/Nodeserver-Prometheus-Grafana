@@ -4,12 +4,12 @@ const client = require("prom-client"); // Metric Collection
 const { createLogger, transports } = require("winston");
 const LokiTransport = require("winston-loki");
 const options = {
-  
   transports: [
     new LokiTransport({
-      host: "http://127.0.0.1:3100"
+      host: process.env.LOKI_HOST || "http://localhost:3100"
     })
-  ]}
+  ]
+};
   const logger = createLogger(options);
 const { doSomeHeavyTask } = require("./util");
 const register = client.register; // Assign register to a variable for better readability
